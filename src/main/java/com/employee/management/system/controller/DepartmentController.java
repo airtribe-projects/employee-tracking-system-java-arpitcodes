@@ -40,13 +40,14 @@ public class DepartmentController {
 
 
     @PostMapping
-    public ResponseEntity<Department> createDepartments(@RequestBody Department departmentRequestBody){
-//        Optional<Department> department = departmentService.getDepartmentById(departmentRequestBody.getDeptId());
-//        if(department.isPresent()){
-//            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-//        }
-        Department savedDepartment = departmentService.createDepartment(departmentRequestBody);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedDepartment);
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department){
+        Department dbDepartment = departmentService.getDepartmentByName(department.getDeptName());
+        if(dbDepartment == null){
+            Department savedDepartment = departmentService.createDepartment(department);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedDepartment);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.employee.management.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-@Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name="departments")
 public class Department {
 
@@ -29,11 +25,63 @@ public class Department {
     private String deptDescription;
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Employee> employees;
 
+    @OneToMany(mappedBy = "department")
+    private List<Project> projects;
 
 
 
+    public Department() {
+    }
 
+    public Department(Long deptId, String deptName, String deptDescription, List<Employee> employees, List<Project> projects) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+        this.deptDescription = deptDescription;
+        this.employees = employees;
+        this.projects = projects;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDeptDescription() {
+        return deptDescription;
+    }
+
+    public void setDeptDescription(String deptDescription) {
+        this.deptDescription = deptDescription;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 }

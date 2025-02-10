@@ -25,4 +25,15 @@ public class DepartmentService {
     public Department createDepartment(Department departmentRequestBody) {
        return departmentRepository.save(departmentRequestBody);
     }
+
+    public Department getDepartmentByName(String deptName) {
+        List<Department> departments = departmentRepository.findAll();
+        for(Department department:departments){
+            if(department.getDeptName().equals(deptName)){
+                System.out.println("Departmnet already exist!");
+                return  department;
+            }
+        }
+        return null;
+    }
 }

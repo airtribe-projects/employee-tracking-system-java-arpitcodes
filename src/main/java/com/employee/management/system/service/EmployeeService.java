@@ -47,4 +47,14 @@ public class EmployeeService {
     public Employee updateEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
+
+    public Employee isEmployeeRegistered(String email) {
+        List<Employee> employeeList = employeeRepository.findAll();
+        for(Employee employee : employeeList){
+            if(employee.getEmail().equals(email)){
+                return employee;
+            }
+        }
+        return null;
+    }
 }
