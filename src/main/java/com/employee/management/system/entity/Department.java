@@ -2,6 +2,7 @@ package com.employee.management.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -20,17 +21,27 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long deptId;
 
+    @NotNull
     private String deptName;
+
 
     private String deptDescription;
 
+    public List<Project> getProjects() {
+        return projects;
+    }
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<Employee> employees;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Project> projects;
+
 
 
 
@@ -75,13 +86,5 @@ public class Department {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
     }
 }
