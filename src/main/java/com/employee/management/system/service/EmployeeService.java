@@ -12,6 +12,7 @@ import com.employee.management.system.repository.DepartmentRepository;
 import com.employee.management.system.repository.EmployeeRepository;
 import com.employee.management.system.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ public class EmployeeService {
     }
 
 
+    @Cacheable
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }

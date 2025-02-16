@@ -7,6 +7,7 @@ import com.employee.management.system.model.DeleteResponse;
 import com.employee.management.system.repository.EmployeeRepository;
 import com.employee.management.system.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+    @Cacheable
     public List<Project> getProjects() {
         return projectRepository.findAll();
     }

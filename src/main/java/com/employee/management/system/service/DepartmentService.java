@@ -11,6 +11,7 @@ import com.employee.management.system.model.DeleteResponse;
 import com.employee.management.system.repository.DepartmentRepository;
 import com.employee.management.system.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class DepartmentService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Cacheable
     public List<Department> getAllDepartment() {
         return departmentRepository.findAll();
     }
